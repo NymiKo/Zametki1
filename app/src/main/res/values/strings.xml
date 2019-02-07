@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Заметки</string>
+    <string name="hint_login">Логин</string>
+    <string name="hint_password">Пароль</string>
+    <string name="sign_on">Войти</string>
+    <string name="button_sign_in">Регистрация</string>
+</resources>
