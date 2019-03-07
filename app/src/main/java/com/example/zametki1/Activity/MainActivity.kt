@@ -5,13 +5,12 @@ import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
-import android.support.annotation.NonNull
 import android.util.Log
 import android.view.View
-import okhttp3.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import android.widget.Toast
-import okhttp3.FormBody
-import okhttp3.OkHttpClient
 import kotlin.concurrent.thread
 import com.example.zametki1.databinding.ActivityMainBinding
 import com.example.zametki1.R
@@ -41,17 +40,18 @@ class MainActivity : AppCompatActivity() {
             binding.wrongLogin.visibility = View.GONE
             Log.e("OKHTTP3", "функция POST вызвана")
             thread {
-                NetworkService().getInstance()
+                NetworkService.getInstance()
                     .getJSONApi()
                     .postData(binding.editLogin.text.toString(), binding.editPassword.text.toString())
-                    .enqueue(object : Callback<Post>() {
+                    .enqueue(object : Callback<Post> {
                         @Override
-                        fun onResponse(@NonNull call: Call<Post>, @NonNull response: Response<Post>) {
-                            val post: Post = response.body()
-                            when (post.getServerAnswer()) {
+                        override fun onResponse( call: Call<Post>, response: Response<Post>) {
+                            Log.e("OKHTTP3", "Все нормально")
+                            val post: Post? = response.body()
+                            when (post?.serverAnswer) {
                                 "true" -> {
-                                    val contactsIntent = Intent(this@MainActivity, Contacts::class.java)
-                                    startActivity(contactsIntent)
+                                    startActivity(Intent(this@MainActivity, Contacts::class.java)
+                                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK))
                                 }
                                 "false" -> {
                                     Looper.prepare()
@@ -59,14 +59,13 @@ class MainActivity : AppCompatActivity() {
                                         applicationContext, "Логин или пароль введены неверно!",
                                         Toast.LENGTH_SHORT
                                     ).show()
-                                    Looper.loop()
                                 }
                             }
                         }
 
                         @Override
-                        fun onFailure(@NonNull call: Call<Post>, @NonNull t: Throwable) {
-                            Looper.prepare()
+                        override fun onFailure(call: Call<Post>, t: Throwable) {
+                            Log.e("OKHTTP3", "Что-то пошло не так...")
                             Toast.makeText(
                                 applicationContext, "Ошибка!",
                                 Toast.LENGTH_SHORT

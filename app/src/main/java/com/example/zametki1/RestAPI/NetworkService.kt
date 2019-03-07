@@ -5,11 +5,16 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class NetworkService {
-    private lateinit var mInstance: NetworkService
-    val BASE_URL: String = "http://android-test-php.000webhostapp.com"
-    private lateinit var retrofit: Retrofit
 
-    private fun NetworkService(){
+    companion object {
+        private const val BASE_URL: String = "http://android-test-php.000webhostapp.com"
+
+        fun getInstance(): NetworkService = NetworkService()
+    }
+
+    private var retrofit: Retrofit
+
+    init{
         val client = OkHttpClient.Builder()
 
         retrofit = Retrofit.Builder()
@@ -17,13 +22,6 @@ class NetworkService {
             .addConverterFactory(GsonConverterFactory.create())
             .client(client.build())
             .build()
-    }
-
-    fun getInstance(): NetworkService {
-        if(mInstance == null){
-            mInstance = NetworkService() as NetworkService
-        }
-        return mInstance
     }
 
     fun getJSONApi(): JSONPlaceHolderApi{

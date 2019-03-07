@@ -13,8 +13,8 @@ class welcome_screen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome_screen)
         Handler().postDelayed(Runnable(){
-            val welcomeIntent = Intent(this@welcome_screen, MainActivity::class.java)
-            startActivity(welcomeIntent)
+            startActivity(Intent(this@welcome_screen, MainActivity::class.java)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK))
         }, welcomeTimeOut)
     }
 }
