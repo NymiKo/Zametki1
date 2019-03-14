@@ -1,5 +1,7 @@
 package com.example.zametki1.RestAPI
 
+import com.google.gson.GsonBuilder
+import com.google.gson.stream.JsonReader
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -17,9 +19,11 @@ class NetworkService {
     init{
         val client = OkHttpClient.Builder()
 
+        val gson = GsonBuilder().setLenient().create()
+
         retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client.build())
             .build()
     }

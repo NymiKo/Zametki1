@@ -14,12 +14,9 @@ import android.widget.Toast
 import kotlin.concurrent.thread
 import com.example.zametki1.databinding.ActivityMainBinding
 import com.example.zametki1.R
+import com.example.zametki1.RestAPI.LoginRequestModel
 import com.example.zametki1.RestAPI.Post
 import com.example.zametki1.RestAPI.NetworkService
-
-
-
-
 
 
 class MainActivity : AppCompatActivity() {
@@ -42,19 +39,19 @@ class MainActivity : AppCompatActivity() {
             thread {
                 NetworkService.getInstance()
                     .getJSONApi()
-                    .postData(binding.editLogin.text.toString(), binding.editPassword.text.toString())
+                    .postData(LoginRequestModel(binding.editLogin.text.toString(), binding.editPassword.text.toString()).getBody())
                     .enqueue(object : Callback<Post> {
                         @Override
                         override fun onResponse( call: Call<Post>, response: Response<Post>) {
                             Log.e("OKHTTP3", "Все нормально")
                             val post: Post? = response.body()
+                            Log.e("OKHTTP3", post?.serverAnswer.toString())
                             when (post?.serverAnswer) {
                                 "true" -> {
                                     startActivity(Intent(this@MainActivity, Contacts::class.java)
                                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK))
                                 }
                                 "false" -> {
-                                    Looper.prepare()
                                     Toast.makeText(
                                         applicationContext, "Логин или пароль введены неверно!",
                                         Toast.LENGTH_SHORT
@@ -66,6 +63,7 @@ class MainActivity : AppCompatActivity() {
                         @Override
                         override fun onFailure(call: Call<Post>, t: Throwable) {
                             Log.e("OKHTTP3", "Что-то пошло не так...")
+                            t.printStackTrace()
                             Toast.makeText(
                                 applicationContext, "Ошибка!",
                                 Toast.LENGTH_SHORT
