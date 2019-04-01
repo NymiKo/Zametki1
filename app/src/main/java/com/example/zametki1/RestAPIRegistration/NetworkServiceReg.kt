@@ -1,23 +1,30 @@
-package com.example.zametki1.RestAPI
+package com.example.zametki1.RestAPIRegistration
 
+import com.example.zametki1.RestAPILogin.JSONPlaceHolderApi
+import com.example.zametki1.RestAPILogin.NetworkService
 import com.google.gson.GsonBuilder
-import com.google.gson.stream.JsonReader
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class NetworkService {
+class NetworkServiceReg {
 
     companion object {
         private const val BASE_URL: String = "http://android-test-php.000webhostapp.com"
 
-        fun getInstance(): NetworkService = NetworkService()
+        fun getInstanceReg(): NetworkServiceReg =
+            NetworkServiceReg()
     }
 
     private var retrofit: Retrofit
 
     init{
         val client = OkHttpClient.Builder()
+        val logging = HttpLoggingInterceptor()
+        logging.level = HttpLoggingInterceptor.Level.BODY
+
+        client.addInterceptor(logging)
 
         val gson = GsonBuilder().setLenient().create()
 
@@ -28,7 +35,7 @@ class NetworkService {
             .build()
     }
 
-    fun getJSONApi(): JSONPlaceHolderApi{
-        return retrofit.create(JSONPlaceHolderApi::class.java)
+    fun getJSONApiReg(): JSONPlaceHolderApiReg {
+        return retrofit.create(JSONPlaceHolderApiReg::class.java)
     }
 }

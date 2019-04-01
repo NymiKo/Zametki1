@@ -1,4 +1,4 @@
-package com.example.zametki1.RestAPI
+package com.example.zametki1.RestAPILogin
 
 import com.google.gson.Gson
 import okhttp3.RequestBody
