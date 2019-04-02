@@ -53,10 +53,10 @@ class welcome_screen : AppCompatActivity() {
                         Log.e("OKHTTP3", post?.serverAnswer.toString())
                         if (post?.serverAnswer.toString() != "false"){
                             Handler().postDelayed(Runnable() {
-                                startActivity(
-                                    Intent(this@welcome_screen, Tasks::class.java)
-                                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                                )
+                                val intent = Intent(this@welcome_screen, Tasks::class.java)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                                intent.putExtra("id", post?.serverAnswer)
+                                startActivity(intent)
                             }, welcomeTimeOut)
                         }
                     }

@@ -4,9 +4,12 @@
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_root" app:startDestination="@id/tasksFragment"
             android:label="@string/title_about_trivia">
     <fragment android:id="@+id/tasksFragment" android:name="com.example.zametki1.Fragment.TasksFragment"
-              android:label="Задачи"/>
+              android:label="Задачи">
+    </fragment>
     <activity android:id="@+id/mainActivity" android:name="com.example.zametki1.Activity.MainActivity"
-              android:label="MainActivity"/>
+              android:label="Авторизация"/>
     <fragment android:id="@+id/profileFragment" android:name="com.example.zametki1.Fragment.ProfileFragment"
-              android:label="Профиль" tools:layout="@layout/fragment_profile"/>
+              android:label="Профиль" tools:layout="@layout/fragment_profile">
+        <argument android:name="id" app:argType="integer" android:defaultValue="0"/>
+    </fragment>
 </navigation>

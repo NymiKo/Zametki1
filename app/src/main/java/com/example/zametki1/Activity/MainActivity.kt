@@ -72,8 +72,10 @@ class MainActivity : AppCompatActivity() {
                             editor.putString("Login", Login)
                             editor.putString("Password", Password)
                             editor.apply()
-                            startActivity(Intent(this@MainActivity, Tasks::class.java)
-                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK))
+                            val intent = Intent(this@MainActivity, Tasks::class.java)
+                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                            intent.putExtra("id", post?.serverAnswer)
+                            startActivity(intent)
                         }
                         else
                             Toast.makeText(
