@@ -8,9 +8,9 @@ import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import com.example.zametki1.R
-import com.example.zametki1.RestAPIRegistration.NetworkServiceReg
-import com.example.zametki1.RestAPIRegistration.PostReg
-import com.example.zametki1.RestAPIRegistration.RegistrationRequestModel
+import com.example.zametki1.RestAPILogin.NetworkService
+import com.example.zametki1.RestAPILogin.PostReg
+import com.example.zametki1.RestAPILogin.RegistrationRequestModel
 import com.example.zametki1.databinding.ActivityRegistrationBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -35,8 +35,8 @@ class RegistrationActivity : AppCompatActivity() {
             //binding.wrongLogin.visibility = View.GONE
             Log.e("OKHTTP3", "функция POST вызвана")
             thread {
-                NetworkServiceReg.getInstanceReg()
-                    .getJSONApiReg()
+                NetworkService.getInstance()
+                    .getJSONApi()
                     .postDataReg(
                         RegistrationRequestModel(
                             binding.editLoginReg.text.toString(),
@@ -51,8 +51,8 @@ class RegistrationActivity : AppCompatActivity() {
                         override fun onResponse(call: Call<PostReg>, response: Response<PostReg>) {
                             Log.e("OKHTTP3", "Все нормально")
                             val post: PostReg? = response.body()
-                            Log.e("OKHTTP3", post?.serverRegAnswer.toString())
-                            when (post?.serverRegAnswer.toString()) {
+                            Log.e("OKHTTP3", post?.serverAnswerReg.toString())
+                            when (post?.serverAnswerReg.toString()) {
                                 "true" -> {
                                     startActivity(
                                         Intent(this@RegistrationActivity, MainActivity::class.java)

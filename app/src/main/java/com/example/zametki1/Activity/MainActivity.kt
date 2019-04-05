@@ -58,23 +58,23 @@ class MainActivity : AppCompatActivity() {
         thread {
             NetworkService.getInstance()
                 .getJSONApi()
-                .postData(
+                .postDataLogin(
                     LoginRequestModel(Login, Password).getBody())
                 .enqueue(object : Callback<Post> {
                     @Override
                     override fun onResponse(call: Call<Post>, response: Response<Post>) {
                         Log.e("OKHTTP3", "Все нормально")
                         val post: Post? = response.body()
-                        Log.e("OKHTTP3", post?.serverAnswer.toString())
-                        if (post?.serverAnswer.toString() != "false"){
-                            getID(post?.serverAnswer)
+                        Log.e("OKHTTP3", post?.serverAnswerLogin.toString())
+                        if (post?.serverAnswerLogin.toString() != "false"){
+                            getID(post?.serverAnswerLogin)
                             editor = myPreferences.edit()
                             editor.putString("Login", Login)
                             editor.putString("Password", Password)
                             editor.apply()
                             val intent = Intent(this@MainActivity, Tasks::class.java)
                                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                            intent.putExtra("id", post?.serverAnswer)
+                            intent.putExtra("id", post?.serverAnswerLogin)
                             startActivity(intent)
                         }
                         else

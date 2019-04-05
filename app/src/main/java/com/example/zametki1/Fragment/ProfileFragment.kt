@@ -21,17 +21,13 @@ import android.util.Log
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
-    private var id: Int? = 0
-    private lateinit var myPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Получение id
-        myPreferences = this.activity!!.getSharedPreferences("Preference", Context.MODE_PRIVATE)
-        id = myPreferences.getInt("id", 0)
-        //id = arguments?.getInt("id")
+        val id = arguments?.getInt("id")
         Log.e("ProfileFragment", id.toString())
 
         binding = DataBindingUtil.inflate(

@@ -5,4 +5,8 @@ import com.google.gson.annotations.SerializedName
 
 data class Post(@SerializedName("answer")
                 @Expose
-                val serverAnswer: Int?)
+                val serverAnswerLogin: Int?)
+
+data class PostReg(@SerializedName("answer")
+                   @Expose
+                   val serverAnswerReg: String?)

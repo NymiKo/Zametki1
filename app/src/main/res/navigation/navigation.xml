@@ -5,11 +5,12 @@
             android:label="@string/title_about_trivia">
     <fragment android:id="@+id/tasksFragment" android:name="com.example.zametki1.Fragment.TasksFragment"
               android:label="Задачи">
+        <argument android:name="id" app:argType="integer" android:defaultValue="991"/>
     </fragment>
     <activity android:id="@+id/mainActivity" android:name="com.example.zametki1.Activity.MainActivity"
               android:label="Авторизация"/>
     <fragment android:id="@+id/profileFragment" android:name="com.example.zametki1.Fragment.ProfileFragment"
               android:label="Профиль" tools:layout="@layout/fragment_profile">
-        <argument android:name="id" app:argType="integer" android:defaultValue="0"/>
+        <argument android:name="id" app:argType="integer" android:defaultValue="999"/>
     </fragment>
 </navigation>
