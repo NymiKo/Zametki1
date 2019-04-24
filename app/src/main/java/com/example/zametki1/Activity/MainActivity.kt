@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        title = "Авторизация"
         myPreferences = getSharedPreferences("Preference", Context.MODE_PRIVATE)
 
         binding.buttonSignOn.setOnClickListener{
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     fun autorization(Login: String, Password: String){
         thread {
-            NetworkService.getInstance()
+            NetworkService.instance()
                 .getJSONApi()
                 .postDataLogin(
                     LoginRequestModel(Login, Password).getBody())
@@ -65,16 +66,18 @@ class MainActivity : AppCompatActivity() {
                     override fun onResponse(call: Call<Post>, response: Response<Post>) {
                         Log.e("OKHTTP3", "Все нормально")
                         val post: Post? = response.body()
-                        Log.e("OKHTTP3", post?.serverAnswerLogin.toString())
-                        if (post?.serverAnswerLogin.toString() != "false"){
-                            getID(post?.serverAnswerLogin)
+                        Log.e("OKHTTP3", post?.serverAnswerId.toString())
+                        if (post?.serverAnswerId.toString() != "false"){
+                            getID(post?.serverAnswerId)
                             editor = myPreferences.edit()
                             editor.putString("Login", Login)
                             editor.putString("Password", Password)
                             editor.apply()
                             val intent = Intent(this@MainActivity, Tasks::class.java)
                                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                            intent.putExtra("id", post?.serverAnswerLogin)
+                            intent.putExtra("id", post?.serverAnswerId)
+                            intent.putExtra("name", post?.serverAnswerName)
+                            intent.putExtra("email", post?.serverAnswerEmail)
                             startActivity(intent)
                         }
                         else

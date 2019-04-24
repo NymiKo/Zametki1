@@ -25,6 +25,7 @@ class RegistrationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_registration)
 
+        title = "Регистрация"
         binding.buttonRegistration.setOnClickListener{
             sendGetReg()
         }
@@ -35,7 +36,7 @@ class RegistrationActivity : AppCompatActivity() {
             //binding.wrongLogin.visibility = View.GONE
             Log.e("OKHTTP3", "функция POST вызвана")
             thread {
-                NetworkService.getInstance()
+                NetworkService.instance()
                     .getJSONApi()
                     .postDataReg(
                         RegistrationRequestModel(
@@ -45,7 +46,7 @@ class RegistrationActivity : AppCompatActivity() {
                             binding.editSurnameReg.text.toString(),
                             binding.editNumberPhone.text.toString(),
                             binding.editEmail.text.toString()
-                        ).getBodyReg())
+                        ).getBody())
                     .enqueue(object : Callback<PostReg> {
                         @Override
                         override fun onResponse(call: Call<PostReg>, response: Response<PostReg>) {
@@ -79,8 +80,6 @@ class RegistrationActivity : AppCompatActivity() {
                         }
                     })
             }
-        } else{
-
         }
     }
 }

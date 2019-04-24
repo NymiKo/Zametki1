@@ -41,7 +41,7 @@ class welcome_screen : AppCompatActivity() {
 
     fun autorization(Login: String, Password: String){
         thread {
-            NetworkService.getInstance()
+            NetworkService.instance()
                 .getJSONApi()
                 .postDataLogin(
                     LoginRequestModel(Login, Password).getBody())
@@ -50,12 +50,14 @@ class welcome_screen : AppCompatActivity() {
                     override fun onResponse(call: Call<Post>, response: Response<Post>) {
                         Log.e("OKHTTP3", "Все нормально")
                         val post: Post? = response.body()
-                        Log.e("OKHTTP3", post?.serverAnswerLogin.toString())
-                        if (post?.serverAnswerLogin.toString() != "false"){
+                        Log.e("OKHTTP3", post?.serverAnswerId.toString())
+                        if (post?.serverAnswerId.toString() != "false"){
                             Handler().postDelayed(Runnable() {
                                 val intent = Intent(this@welcome_screen, Tasks::class.java)
                                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                                intent.putExtra("id", post?.serverAnswerLogin)
+                                intent.putExtra("id", post?.serverAnswerId)
+                                intent.putExtra("name", post?.serverAnswerName)
+                                intent.putExtra("email", post?.serverAnswerEmail)
                                 startActivity(intent)
                             }, welcomeTimeOut)
                         }
@@ -66,7 +68,7 @@ class welcome_screen : AppCompatActivity() {
                         Log.e("OKHTTP3", "Что-то пошло не так...")
                         t.printStackTrace()
                         Toast.makeText(
-                            applicationContext, "Ошибка!",
+                            applicationContext, "Нет подключения к интернету!",
                             Toast.LENGTH_SHORT
                         ).show()
                         Looper.loop()

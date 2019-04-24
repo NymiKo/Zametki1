@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="@string/exit_on_login_activity" android:id="@+id/mainActivity"/>
+    <item android:title="Новая задача" android:id="@+id/createTasks" app:showAsAction="always"
+          android:icon="@mipmap/greek_cross"/>
+    <item android:title="@string/exit_on_login_activity" android:id="@+id/go_to_mainActivity" app:showAsAction="never">
+    </item>
 </menu>

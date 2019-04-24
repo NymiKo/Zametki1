@@ -11,8 +11,7 @@ class NetworkService {
     companion object {
         private const val BASE_URL: String = "http://android-test-php.000webhostapp.com"
 
-        fun getInstance(): NetworkService =
-            NetworkService()
+        fun instance() = NetworkService()
     }
 
     private var retrofit: Retrofit

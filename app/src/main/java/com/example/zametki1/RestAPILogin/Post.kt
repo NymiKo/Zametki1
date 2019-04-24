@@ -3,10 +3,33 @@ package com.example.zametki1.RestAPILogin
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class Post(@SerializedName("answer")
+data class Post(@SerializedName("Id")
                 @Expose
-                val serverAnswerLogin: Int?)
+                val serverAnswerId: Int?,
+                @SerializedName("Name")
+                @Expose
+                val serverAnswerName: String?,
+                @SerializedName("Email")
+                @Expose
+                val serverAnswerEmail: String?)
 
 data class PostReg(@SerializedName("answer")
                    @Expose
                    val serverAnswerReg: String?)
+
+data class PostViewProfile(@SerializedName("Name")
+                           @Expose
+                           val serverAnswerName: String?,
+                           @SerializedName("Surname")
+                           @Expose
+                           val serverAnswerSurname: String?,
+                           @SerializedName("NumberPhone")
+                           @Expose
+                           val serverAnswerNumberPhone: String?,
+                           @SerializedName("Email")
+                           @Expose
+                           val serverAnswerEmail: String?)
+
+data class PostEditProfile(@SerializedName("answer")
+                           @Expose
+                           val serverAnswerEditProfile: String?)

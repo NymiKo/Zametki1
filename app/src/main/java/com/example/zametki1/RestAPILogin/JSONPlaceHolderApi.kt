@@ -12,18 +12,42 @@ interface JSONPlaceHolderApi {
 
     @POST("/register.php")
     fun postDataReg(@Body bodyReg: RequestBody): Call<PostReg>
+
+    @POST("/profile.php")
+    fun postViewProfile(@Body bodyViewProfile: RequestBody): Call<PostViewProfile>
+
+    @POST("/profile_edit.php")
+    fun postEditProfile(@Body bodyEditProfile: RequestBody): Call<PostEditProfile>
 }
 
 data class LoginRequestModel(val Login: String, val Password: String){
-    fun getBody():RequestBody{
+    fun getBody(): RequestBody {
         val gson = Gson()
         return RequestBody.create(null, gson.toJson(this))
     }
 }
 
 data class RegistrationRequestModel(val Login: String, val Password: String, val Name: String, val Surname:String, val NumberPhone: String, val Email:String){
-    fun getBodyReg(): RequestBody {
+    fun getBody(): RequestBody {
         val gson = Gson()
         return RequestBody.create(null, gson.toJson(this))
     }
 }
+
+data class ProfileViewModel(val id: Int){
+    fun getBody(): RequestBody {
+        val gson = Gson()
+        return RequestBody.create(null, gson.toJson(this))
+    }
+}
+
+data class ProfileEditModel(val Id: Int, val Name: String, val Surname:String, val NumberPhone: String, val Email:String){
+    fun getBody(): RequestBody {
+        val gson = Gson()
+        return RequestBody.create(null, gson.toJson(this))
+    }
+}
+
+//class getBody{
+//
+//}

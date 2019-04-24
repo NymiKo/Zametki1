@@ -1,32 +1,37 @@
 package com.example.zametki1.Activity
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.widget.DrawerLayout
 import android.util.Log
+import android.widget.TextView
 import androidx.navigation.NavArgument
 import androidx.navigation.NavType
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.example.zametki1.Fragment.ProfileFragment
-import com.example.zametki1.Fragment.TasksFragment
 import com.example.zametki1.R
 import com.example.zametki1.databinding.ActivityTasksBinding
 
 class Tasks : AppCompatActivity() {
     private var drawerLayout: DrawerLayout? = null
+    private lateinit var binding: ActivityTasksBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         @Suppress("UNUSED_VARIABLE")
-        val binding = DataBindingUtil.setContentView<ActivityTasksBinding>(this, R.layout.activity_tasks)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_tasks)
+
         drawerLayout = binding.drawerLayout
 
         val navController = this.findNavController(R.id.myNavHostFragment)
         val id = intent.extras?.get("id").toString()
+        val userName = intent.extras?.get("name").toString()
+        Log.e("UserName", userName)
+        val userEmail = intent.extras?.get("email").toString()
+
+        //Отображение имени и email в navigation header
+        navHeaderSet(userName, userEmail)
 
         //Передача id в TasksFragment
         setID_onTasksFragment(id.toInt())
@@ -36,7 +41,6 @@ class Tasks : AppCompatActivity() {
 
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
         NavigationUI.setupWithNavController(binding.navigationView, navController)
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -58,5 +62,13 @@ class Tasks : AppCompatActivity() {
             .setType(NavType.IntType)
             .setDefaultValue(id)
             .build())
+    }
+
+    fun navHeaderSet(userName: String, userEmail: String){
+        val navHeader = binding.navigationView.getHeaderView(0)
+        val userNameTextView = navHeader.findViewById<TextView>(R.id.nav_header_user_name)
+        val userEmailTextView = navHeader.findViewById<TextView>(R.id.nav_header_user_email)
+        userNameTextView.text = userName
+        userEmailTextView.text = userEmail
     }
 }

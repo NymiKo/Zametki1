@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF488EFF</color>
+    <color name="colorPrimary">#488EFF</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#000000</color>
-    <color name="button_sign_on">#5F9CFF</color>
+    <color name="button_sign_on">#5F9CF5</color>
     <color name="main_background">#7FB4FF</color>
     <color name="wrong_login">#E32626</color>
 </resources>
