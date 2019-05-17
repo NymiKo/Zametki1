@@ -6,4 +6,10 @@
     <color name="button_sign_on">#5F9CF5</color>
     <color name="main_background">#7FB4FF</color>
     <color name="wrong_login">#E32626</color>
+    <color name="btn_task_color_red">#E62929</color>
+    <color name="btn_task_color_green">#4AC619</color>
+    <color name="btn_task_color_yellow">#D1D729</color>
+    <color name="btn_task_color_orange">#FF6900</color>
+    <color name="btn_task_color_blue">#4255FF</color>
+    <color name="btn_task_color_purple">#8934FF</color>
 </resources>

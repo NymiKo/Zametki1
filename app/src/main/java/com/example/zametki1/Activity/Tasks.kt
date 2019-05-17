@@ -1,9 +1,9 @@
 package com.example.zametki1.Activity
 
-import android.databinding.DataBindingUtil
-import android.support.v7.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.widget.DrawerLayout
+import androidx.drawerlayout.widget.DrawerLayout
 import android.util.Log
 import android.widget.TextView
 import androidx.navigation.NavArgument
@@ -51,7 +51,7 @@ class Tasks : AppCompatActivity() {
     fun setID_onTasksFragment(id: Int){
         val navController = this.findNavController(R.id.myNavHostFragment)
         val idUser = Bundle()
-        idUser.putInt("id", id.toInt())
+        idUser.putInt("id", id)
         navController.navigate(R.id.tasksFragment, idUser)
     }
 

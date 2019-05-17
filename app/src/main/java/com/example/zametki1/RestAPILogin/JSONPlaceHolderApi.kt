@@ -18,6 +18,9 @@ interface JSONPlaceHolderApi {
 
     @POST("/profile_edit.php")
     fun postEditProfile(@Body bodyEditProfile: RequestBody): Call<PostEditProfile>
+
+    @POST("/task.php")
+    fun postCreateTask(@Body bodyCreateTask: RequestBody): Call<PostCreateTask>
 }
 
 data class LoginRequestModel(val Login: String, val Password: String){
@@ -42,6 +45,13 @@ data class ProfileViewModel(val id: Int){
 }
 
 data class ProfileEditModel(val Id: Int, val Name: String, val Surname:String, val NumberPhone: String, val Email:String){
+    fun getBody(): RequestBody {
+        val gson = Gson()
+        return RequestBody.create(null, gson.toJson(this))
+    }
+}
+
+data class CreateTaskModel(val Name: String, val Discription: String, val Color: Int, val Creator: Int, val Participant: String){
     fun getBody(): RequestBody {
         val gson = Gson()
         return RequestBody.create(null, gson.toJson(this))

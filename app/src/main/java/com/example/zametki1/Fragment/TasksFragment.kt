@@ -4,9 +4,9 @@ package com.example.zametki1.Fragment
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.util.Log
 import android.view.*
 import androidx.navigation.Navigation
@@ -22,21 +22,20 @@ import com.example.zametki1.R
  * A simple [Fragment] subclass.
  *
  */
-class TasksFragment : Fragment() {
+class TasksFragment : androidx.fragment.app.Fragment() {
 
     private lateinit var myPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
+    private lateinit var binding: FragmentTasksBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentTasksBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_tasks, container, false
         )
         setHasOptionsMenu(true)
-
-        myPreferences = activity!!.getSharedPreferences("Preference", Context.MODE_PRIVATE)
 
         //Получение id от TasksActivity
         val id = arguments?.getInt("id")
@@ -45,13 +44,13 @@ class TasksFragment : Fragment() {
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater?.inflate(R.menu.overflow_menu, menu)
+        inflater.inflate(R.menu.overflow_menu, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId){
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
             R.id.go_to_mainActivity -> {
                 startActivity(Intent(this.activity, MainActivity::class.java)
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK))
@@ -62,7 +61,7 @@ class TasksFragment : Fragment() {
             }
         }
 
-        return NavigationUI.onNavDestinationSelected(item!!, Navigation.findNavController(view!!))
+        return NavigationUI.onNavDestinationSelected(item, Navigation.findNavController(view!!))
                 || super.onOptionsItemSelected(item)
     }
 }

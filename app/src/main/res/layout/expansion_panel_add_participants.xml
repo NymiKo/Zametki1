@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical">
+        <com.github.florent37.expansionpanel.ExpansionHeader
+                android:id="@+id/sampleHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:expansion_layout="@id/expansionLayout"
+                app:expansion_toggleOnClick="true">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="43dp" app:srcCompat="@mipmap/participant" android:id="@+id/imageView"
+                        android:layout_alignParentBottom="true" android:layout_marginBottom="3dp"
+                        android:layout_marginTop="2dp" android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true" android:layout_marginStart="-6dp"/>
+                <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="27dp"
+                        android:layout_marginLeft="120dp"
+                        android:text="Участники"
+                        android:textColor="@color/colorAccent" android:layout_toEndOf="@+id/imageView"
+                        android:layout_marginStart="12dp" android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="12dp" android:layout_marginTop="9dp"
+                        android:layout_alignParentTop="true" android:textSize="20sp"/>
+
+            </RelativeLayout>
+
+        </com.github.florent37.expansionpanel.ExpansionHeader>
+
+        <com.github.florent37.expansionpanel.ExpansionLayout
+                android:id="@+id/expansionLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:expansion_expanded="false">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="vertical" android:padding="8dp" android:gravity="center"
+                          android:id="@+id/linearLayoutAddParticipants">
+                <Button
+                        android:text="Добавить участника"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/btnAddParticipants"
+                        android:textAlignment="center"
+                        android:layout_gravity="center" android:background="@color/button_sign_on"
+                />
+            </LinearLayout>
+        </com.github.florent37.expansionpanel.ExpansionLayout>
+
+    </LinearLayout>
+</layout>

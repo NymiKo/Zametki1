@@ -33,3 +33,7 @@ data class PostViewProfile(@SerializedName("Name")
 data class PostEditProfile(@SerializedName("answer")
                            @Expose
                            val serverAnswerEditProfile: String?)
+
+data class PostCreateTask(@SerializedName("answer")
+                          @Expose
+                          val serverAnswerCreateTask: String?)

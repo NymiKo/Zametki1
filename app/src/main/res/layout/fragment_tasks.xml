@@ -5,12 +5,13 @@
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".Fragment.TasksFragment">
+            tools:context=".Fragment.TasksFragment" android:id="@+id/frameLayoutTaskFragment">
 
         <!-- TODO: Update blank fragment layout -->
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" android:background="@android:color/background_light"/>
+                android:layout_height="match_parent" android:background="@android:color/background_light"
+                android:id="@+id/constraintLayoutTaskFragment"/>
 
     </FrameLayout>
 </layout>
