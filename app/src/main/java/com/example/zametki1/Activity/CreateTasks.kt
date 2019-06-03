@@ -26,12 +26,19 @@ class CreateTasks : AppCompatActivity() {
     private lateinit var binding: ActivityCreateTasksBinding
     var saveTaskColor: Int = -1
     var idAddParticipantsEditText: Int = 0
+    var id: String = ""
+    var userEmail: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_tasks)
 
         title = "Новая задача"
+
+        id = intent.extras?.get("id").toString()
+        Log.e("CreateTasks", id)
+        userEmail = intent.extras?.get("email").toString()
+        Log.e("CreateTasks", userEmail)
 
         //Выбор цвета
         val btnRed = findViewById<Button>(R.id.btn_task_color_red)
@@ -60,6 +67,12 @@ class CreateTasks : AppCompatActivity() {
         }
 
         binding.btnAddTasks.setOnClickListener {
+            sendCreateTask(
+                binding.editNameTasks.text.toString(),
+                binding.editTextDescription.text.toString(),
+                saveTaskColor,
+                id.toInt(),
+                userEmail)
             for(i in 1..idAddParticipantsEditText) {
                 val idParticipantsCount: EditText = linearLayoutAddParticipants.findViewWithTag(i)
                 Log.e("inPart", idParticipantsCount.text.toString())
@@ -67,7 +80,7 @@ class CreateTasks : AppCompatActivity() {
                     binding.editNameTasks.text.toString(),
                     binding.editTextDescription.text.toString(),
                     saveTaskColor,
-                    1,
+                    id.toInt(),
                     idParticipantsCount.text.toString())
             }
         }

@@ -26,6 +26,7 @@ class Tasks : AppCompatActivity() {
 
         val navController = this.findNavController(R.id.myNavHostFragment)
         val id = intent.extras?.get("id").toString()
+        Log.e("UserID", id)
         val userName = intent.extras?.get("name").toString()
         Log.e("UserName", userName)
         val userEmail = intent.extras?.get("email").toString()
@@ -34,7 +35,7 @@ class Tasks : AppCompatActivity() {
         navHeaderSet(userName, userEmail)
 
         //Передача id в TasksFragment
-        setID_onTasksFragment(id.toInt())
+        setID_onTasksFragment(id.toInt(), userEmail)
 
         //Передача id в ProfileFragment
         setID_onProfileFragment(id.toInt())
@@ -48,11 +49,12 @@ class Tasks : AppCompatActivity() {
         return NavigationUI.navigateUp(navController, drawerLayout)
     }
 
-    fun setID_onTasksFragment(id: Int){
+    fun setID_onTasksFragment(id: Int, userEmail: String){
         val navController = this.findNavController(R.id.myNavHostFragment)
-        val idUser = Bundle()
-        idUser.putInt("id", id)
-        navController.navigate(R.id.tasksFragment, idUser)
+        val infoUser = Bundle()
+        infoUser.putInt("id", id)
+        infoUser.putString("email", userEmail)
+        navController.navigate(R.id.tasksFragment, infoUser)
     }
 
     fun setID_onProfileFragment(id: Int){

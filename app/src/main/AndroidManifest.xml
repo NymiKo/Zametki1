@@ -12,8 +12,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".Activity.CreateTasks"
-                android:windowSoftInputMode="stateHidden"    >
+                android:name=".Activity.CreateTasks">
         </activity>
         <activity android:name=".Activity.Tasks">
         </activity>

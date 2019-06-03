@@ -37,3 +37,13 @@ data class PostEditProfile(@SerializedName("answer")
 data class PostCreateTask(@SerializedName("answer")
                           @Expose
                           val serverAnswerCreateTask: String?)
+
+data class PostShowTask(@SerializedName("TaskName")
+                        @Expose
+                        val serverAnswerTaskName: String?,
+                        @SerializedName("TaskColor")
+                        @Expose
+                        val serverAnswerTaskColor: Int,
+                        @SerializedName("answer")
+                        @Expose
+                        val serverAnswerTask: String?)
