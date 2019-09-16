@@ -25,9 +25,13 @@ class welcome_screen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome_screen)
+
+        //Получение сохраненных настроек
         myPreferences = getSharedPreferences("Preference", Context.MODE_PRIVATE)
         val loginPreferences = myPreferences.getString("Login", "null")
         val passwordPreferences = myPreferences.getString("Password", "null")
+
+        //Авторизация пользователя, если он уже был авторизован и не выходил из аккаунта
         if(loginPreferences != "null"){
             autorization(loginPreferences, passwordPreferences)
         }
@@ -39,6 +43,7 @@ class welcome_screen : AppCompatActivity() {
         }
     }
 
+    //Метод для авторизации пользователя
     fun autorization(Login: String, Password: String){
         thread {
             NetworkService.instance()

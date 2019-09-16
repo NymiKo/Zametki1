@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".Activity.TaskViewActivity">
+
+        <TextView
+                android:text="Название задачи:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textName"
+                android:textSize="22sp" android:layout_marginTop="16dp"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp" android:textStyle="bold" android:visibility="gone"/>
+        <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/textViewTaskName"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp" android:textSize="20sp" android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/colorAccent"
+                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/textName"
+                android:visibility="gone"/>
+        <TextView
+                android:text="Описание:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textDescription"
+                android:textSize="22sp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp" android:textStyle="bold" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/textViewTaskName"/>
+        <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:id="@+id/textViewTaskDescription"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp" android:textSize="20sp" android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/colorAccent"
+                app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/textDescription" android:inputType="textMultiLine"/>
+        <Button
+                android:text="Удалить"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" android:id="@+id/btnDeleteTask"
+                app:layout_constraintTop_toBottomOf="@+id/textViewTaskDescription" android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintVertical_bias="1.0" app:layout_constraintStart_toEndOf="@+id/btnEditTask"
+                android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.0"
+                android:background="@color/btn_delete" android:textSize="18sp"
+                android:textColor="@android:color/background_light" android:visibility="visible"
+        />
+        <Button
+                android:text="Изменить"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/textViewTaskDescription"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/btnDeleteTask"
+                android:textSize="18sp" android:background="@color/button_sign_on"
+                android:textColor="@android:color/background_light" android:visibility="visible"
+                android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="1.0" android:id="@+id/btnEditTask"/>
+        <Button
+                android:text="Сохранить"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" android:id="@+id/btnSaveTask"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/textViewTaskDescription"
+                app:layout_constraintVertical_bias="0.986"
+                android:background="@color/button_sign_on" android:textSize="18sp"
+                android:textColor="@android:color/background_light" android:visibility="gone"
+                android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

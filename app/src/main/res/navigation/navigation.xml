@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_root" app:startDestination="@id/tasksFragment"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_root"
+            app:startDestination="@+id/tasksFragment"
             android:label="@string/title_about_trivia">
     <fragment android:id="@+id/tasksFragment" android:name="com.example.zametki1.Fragment.TasksFragment"
               android:label="Задачи">
-        <argument android:name="id" app:argType="integer" android:defaultValue="991"/>
         <argument android:name="name" app:argType="string" android:defaultValue="nety"/>
     </fragment>
     <fragment android:id="@+id/profileFragment" android:name="com.example.zametki1.Fragment.ProfileFragment"

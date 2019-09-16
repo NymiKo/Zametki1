@@ -25,12 +25,16 @@ class RegistrationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_registration)
 
+        //Название экрана
         title = "Регистрация"
+
+        //Вызов метода для регистрации пользователя
         binding.buttonRegistration.setOnClickListener{
             sendGetReg()
         }
     }
 
+    //Метод для отправки данных при регистрации пользователя и запись их в базу данных
     private fun sendGetReg() {
         if(binding.editLoginReg.length() >= 3) {
             //binding.wrongLogin.visibility = View.GONE
@@ -59,9 +63,27 @@ class RegistrationActivity : AppCompatActivity() {
                                         Intent(this@RegistrationActivity, MainActivity::class.java)
                                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK))
                                 }
+                                "falseLogin" -> {
+                                    Toast.makeText(
+                                        applicationContext, "Такой логин уже зарегистрирован!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                                "falseEmail" -> {
+                                    Toast.makeText(
+                                        applicationContext, "Такой email уже зарегистрирован!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                                "falseNumberPhone" -> {
+                                    Toast.makeText(
+                                        applicationContext, "Такой номер телефона уже зарегистрирован!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
                                 "false" -> {
                                     Toast.makeText(
-                                        applicationContext, "Такой логин уже существует!",
+                                        applicationContext, "Ошибка регистрации!",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }

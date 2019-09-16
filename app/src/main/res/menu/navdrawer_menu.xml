@@ -3,5 +3,5 @@
 
     <item android:title="@string/title_profile_fragment"
           android:id="@+id/profileFragment" android:icon="@mipmap/avatar00" app:showAsAction="never"/>
-    <item android:title="О приложении" android:id="@+id/aboutTheApplication"/>
+    <item android:title="О приложении" android:id="@+id/aboutTheApplication" android:icon="@mipmap/about"/>
 </menu>

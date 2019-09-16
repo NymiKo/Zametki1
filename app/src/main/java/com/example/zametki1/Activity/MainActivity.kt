@@ -34,17 +34,24 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        //Заголовок экрана
         title = "Авторизация"
+
+        //Получение сохраненных настроек приложения
         myPreferences = getSharedPreferences("Preference", Context.MODE_PRIVATE)
 
+        //Вызов метода для авторизации
         binding.buttonSignOn.setOnClickListener{
             sendGet()
         }
+
+        //Вызов метода для перехода на экран регистрации
         binding.buttonSignIn.setOnClickListener{
             startActivity(Intent(this@MainActivity, RegistrationActivity::class.java))
         }
     }
 
+    //Метод для проверки данных и авторизации пользователя
     private fun sendGet() {
         if(binding.editLogin.length() >= 3) {
             binding.wrongLogin.visibility = View.GONE
@@ -55,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //Метод для получение ответа сервера при авторизации
     fun autorization(Login: String, Password: String){
         thread {
             NetworkService.instance()
@@ -67,24 +75,28 @@ class MainActivity : AppCompatActivity() {
                         Log.e("OKHTTP3", "Все нормально")
                         val post: Post? = response.body()
                         Log.e("OKHTTP3", post?.serverAnswerId.toString())
-                        if (post?.serverAnswerId.toString() != "false"){
-                            getID(post?.serverAnswerId)
-                            editor = myPreferences.edit()
-                            editor.putString("Login", Login)
-                            editor.putString("Password", Password)
-                            editor.apply()
-                            val intent = Intent(this@MainActivity, Tasks::class.java)
-                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                            intent.putExtra("id", post?.serverAnswerId)
-                            intent.putExtra("name", post?.serverAnswerName)
-                            intent.putExtra("email", post?.serverAnswerEmail)
-                            startActivity(intent)
+                        when(post?.serverAnswer.toString()) {
+                            "true" -> {
+                                getID(post?.serverAnswerId)
+                                editor = myPreferences.edit()
+                                editor.putString("Login", Login)
+                                editor.putString("Password", Password)
+                                editor.apply()
+                                val intent = Intent(this@MainActivity, Tasks::class.java)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                                intent.putExtra("id", post?.serverAnswerId)
+                                intent.putExtra("name", post?.serverAnswerName)
+                                intent.putExtra("email", post?.serverAnswerEmail)
+                                startActivity(intent)
+                            }
+
+                            "false" -> {
+                                Toast.makeText(
+                                    applicationContext, "Логин или пароль введены неверно!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                         }
-                        else
-                            Toast.makeText(
-                                applicationContext, "Логин или пароль введены неверно!",
-                                Toast.LENGTH_SHORT
-                            ).show()
                     }
 
                     @Override
@@ -101,6 +113,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //Отправка id пользователя в ProfileFragment
     fun getID(id: Int?): ProfileFragment{
         val idUser = Bundle()
         idUser.putInt("id", id!!)

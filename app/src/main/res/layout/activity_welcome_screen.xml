@@ -8,7 +8,7 @@
         tools:context=".Activity.welcome_screen" android:background="@color/button_sign_on">
     <ImageView
             android:layout_width="181dp"
-            android:layout_height="166dp" app:srcCompat="@mipmap/unnamed"
+            android:layout_height="166dp" app:srcCompat="@mipmap/logo"
             android:id="@+id/imageView2" android:layout_marginTop="172dp"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"

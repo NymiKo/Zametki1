@@ -4,14 +4,17 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class Post(@SerializedName("Id")
-                @Expose
-                val serverAnswerId: Int?,
-                @SerializedName("Name")
-                @Expose
-                val serverAnswerName: String?,
-                @SerializedName("Email")
-                @Expose
-                val serverAnswerEmail: String?)
+                                                                                                  @Expose
+                                                                                                  val serverAnswerId: Int?,
+                                                                        @SerializedName("Name")
+                                                                                                  @Expose
+                                                                                                  val serverAnswerName: String?,
+                                                                        @SerializedName("Email")
+                                                                                                  @Expose
+                                                                                                  val serverAnswerEmail: String?,
+                                                                        @SerializedName("answer")
+                                                                                                  @Expose
+                                                                                                  val serverAnswer: String?)
 
 data class PostReg(@SerializedName("answer")
                    @Expose
@@ -44,6 +47,27 @@ data class PostShowTask(@SerializedName("TaskName")
                         @SerializedName("TaskColor")
                         @Expose
                         val serverAnswerTaskColor: Int,
+                        @SerializedName("IdTask")
+                        @Expose
+                        val serverAnswerTaskId: Int,
                         @SerializedName("answer")
+                        @Expose
+                        val serverAnswerTask: String?)
+
+data class PostTaskView(@SerializedName("TaskDescription")
+                        @Expose
+                        val serverAnswerTaskDescription: String?,
+                        @SerializedName("IdCreator")
+                        @Expose
+                        val serverAnswerTaskIdCreator: Int,
+                        @SerializedName("answer")
+                        @Expose
+                        val serverAnswerTask: String?)
+
+data class PostTaskDelete(@SerializedName("answer")
+                          @Expose
+                          val serverAnswerTask: String?)
+
+data class PostTaskEdit(@SerializedName("answer")
                         @Expose
                         val serverAnswerTask: String?)

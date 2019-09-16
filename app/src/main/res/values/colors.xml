@@ -12,4 +12,5 @@
     <color name="btn_task_color_orange">#FF6900</color>
     <color name="btn_task_color_blue">#4255FF</color>
     <color name="btn_task_color_purple">#8934FF</color>
+    <color name="btn_delete">#C50808</color>
 </resources>

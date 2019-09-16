@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:id="@+id/update_task" app:showAsAction="always" android:title="Обновление списка задач"
+          android:icon="@mipmap/update"/>
     <item android:title="Новая задача" android:id="@+id/go_to_createTasks" app:showAsAction="always"
           android:icon="@mipmap/greek_cross"/>
     <item android:title="@string/exit_on_login_activity" android:id="@+id/go_to_mainActivity" app:showAsAction="never">

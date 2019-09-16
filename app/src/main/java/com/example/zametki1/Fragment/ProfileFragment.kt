@@ -4,6 +4,8 @@ package com.example.zametki1.Fragment
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.os.Build
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.os.Handler
@@ -17,6 +19,7 @@ import com.example.zametki1.R
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.example.zametki1.Activity.Tasks
 import com.example.zametki1.RestAPILogin.*
 import retrofit2.Call
@@ -38,19 +41,31 @@ class ProfileFragment : androidx.fragment.app.Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        //Получение id пользователя
         val id = arguments?.getInt("id")
         Log.e("ProfileFragment", id.toString())
 
+        //Вызов метода для получения данных профиля пользователя
         viewProfile(id!!)
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_profile, container, false
         )
 
+        saveProfileBtnClick()
+
+        //Вызов метода для редактирования профиля
         binding.profileButtonEdit.setOnClickListener {
             editProfileVtnClick()
+
+            //Скрытие ButtonEdit
+            binding.profileButtonEdit.visibility = View.INVISIBLE
+
+            //Отображение ButtonSave
+            binding.profileButtonSave.visibility = View.VISIBLE
         }
 
+        //Вызов метода для сохранения измененных данных профиля
         binding.profileButtonSave.setOnClickListener {
             editProfile(
                 id.toInt(),
@@ -59,68 +74,66 @@ class ProfileFragment : androidx.fragment.app.Fragment() {
                 binding.profileEditNumberPhone.text.toString(),
                 binding.profileEditEmail.text.toString()
             )
+
+            saveProfileBtnClick()
+
+            //Скрытие ButtonSave
+            binding.profileButtonSave.visibility = View.INVISIBLE
+
+            //Отображение ButtonEdit
+            binding.profileButtonEdit.visibility = View.VISIBLE
         }
         return binding.root
     }
 
     private fun editProfileVtnClick(){
         //Скрытие TextView
+
         binding.apply {
-            profileNameView.visibility = View.INVISIBLE
-            profileSurnameView.visibility = View.INVISIBLE
-            profileNumberPhoneView.visibility = View.INVISIBLE
-            profileEmailView.visibility = View.INVISIBLE
 
             //Отображение EditText
-            profileEditName.visibility = View.VISIBLE
-            profileEditSurname.visibility = View.VISIBLE
-            profileEditNumberPhone.visibility = View.VISIBLE
-            profileEditEmail.visibility = View.VISIBLE
-
             activity?.runOnUiThread {
-                profileEditName.text = profileNameView.editableText
-                profileEditSurname.text = profileSurnameView.editableText
-                profileEditNumberPhone.text = profileNumberPhoneView.editableText
-                profileEditEmail.text = profileEmailView.editableText
+                binding.profileEditName.isEnabled = true
+                binding.profileEditSurname.isEnabled = true
+                binding.profileEditEmail.isEnabled = true
+                binding.profileEditNumberPhone.isEnabled = true
+                binding.profileEditName.isCursorVisible = true
+                binding.profileEditSurname.isCursorVisible = true
+                binding.profileEditEmail.isCursorVisible = true
+                binding.profileEditNumberPhone.isCursorVisible = true
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    profileEditName.backgroundTintList = ContextCompat.getColorStateList(activity!!.applicationContext, R.color.background_material_dark)
+                    profileEditSurname.backgroundTintList = ContextCompat.getColorStateList(activity!!.applicationContext, R.color.background_material_dark)
+                    profileEditEmail.backgroundTintList = ContextCompat.getColorStateList(activity!!.applicationContext, R.color.background_material_dark)
+                    profileEditNumberPhone.backgroundTintList = ContextCompat.getColorStateList(activity!!.applicationContext, R.color.background_material_dark)
+                }
             }
-
-            //Скрытие ButtonEdit
-            profileButtonEdit.visibility = View.INVISIBLE
-
-            //Отображение ButtonSave
-            profileButtonSave.visibility = View.VISIBLE
         }
     }
 
     private fun saveProfileBtnClick(){
         //Скрытие EditText
         binding.apply {
-            profileEditName.visibility = View.INVISIBLE
-            profileEditSurname.visibility = View.INVISIBLE
-            profileEditNumberPhone.visibility = View.INVISIBLE
-            profileEditEmail.visibility = View.INVISIBLE
-
-            //Отображение TextView
-            profileNameView.visibility = View.VISIBLE
-            profileSurnameView.visibility = View.VISIBLE
-            profileNumberPhoneView.visibility = View.VISIBLE
-            profileEmailView.visibility = View.VISIBLE
-
             activity?.runOnUiThread {
-                profileNameView.text = profileEditName.text
-                profileSurnameView.text = profileEditSurname.text
-                profileNumberPhoneView.text = profileEditNumberPhone.text
-                profileEmailView.text = profileEditEmail.text
+                binding.profileEditName.isEnabled = false
+                binding.profileEditSurname.isEnabled = false
+                binding.profileEditEmail.isEnabled = false
+                binding.profileEditNumberPhone.isEnabled = false
+                binding.profileEditName.isCursorVisible = false
+                binding.profileEditSurname.isCursorVisible = false
+                binding.profileEditEmail.isCursorVisible = false
+                binding.profileEditNumberPhone.isCursorVisible = false
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    profileEditName.backgroundTintList = ContextCompat.getColorStateList(activity!!.applicationContext, R.color.background_material_light)
+                    profileEditSurname.backgroundTintList = ContextCompat.getColorStateList(activity!!.applicationContext, R.color.background_material_light)
+                    profileEditEmail.backgroundTintList = ContextCompat.getColorStateList(activity!!.applicationContext, R.color.background_material_light)
+                    profileEditNumberPhone.backgroundTintList = ContextCompat.getColorStateList(activity!!.applicationContext, R.color.background_material_light)
+                }
             }
-
-            //Скрытие ButtonSave
-            profileButtonSave.visibility = View.INVISIBLE
-
-            //Отображение ButtonEdit
-            profileButtonEdit.visibility = View.VISIBLE
         }
     }
 
+    //Метод для получения данных профиля
     private fun viewProfile(id: Int){
         thread {
             NetworkService.instance()
@@ -134,22 +147,23 @@ class ProfileFragment : androidx.fragment.app.Fragment() {
                         val post: PostViewProfile? = response.body()
                         activity?.runOnUiThread {
                             binding.apply {
-                                profileNameView.text = post?.serverAnswerName
-                                profileSurnameView.text = post?.serverAnswerSurname
-                                profileNumberPhoneView.text = post?.serverAnswerNumberPhone
-                                profileEmailView.text = post?.serverAnswerEmail
+                                profileEditName.setText(post?.serverAnswerName)
+                                profileEditSurname.setText(post?.serverAnswerSurname)
+                                profileEditNumberPhone.setText(post?.serverAnswerNumberPhone)
+                                profileEditEmail.setText(post?.serverAnswerEmail)
                             }
                         }
                     }
 
                     @Override
                     override fun onFailure(call: Call<PostViewProfile>, t: Throwable) {
-                        Log.e("ProfileView", "Пиздец")
+                        Log.e("ProfileView", "Ошибка!")
                     }
                 })
         }
     }
 
+    //Метод для записи измененых профиля данных в базу данных
     private fun editProfile(Id: Int, Name: String, Surname: String, NumberPhone: String, Email: String){
         if(binding.profileEditName.length() == 0 || binding.profileEditSurname.length() == 0 ||
             binding.profileEditNumberPhone.length() == 0 || binding.profileEditEmail.length() == 0){
@@ -172,7 +186,7 @@ class ProfileFragment : androidx.fragment.app.Fragment() {
                             when(post?.serverAnswerEditProfile.toString()){
                                 "true" -> {
                                     saveProfileBtnClick()
-                                    navHeaderSet(binding.profileNameView.text.toString(), binding.profileEmailView.text.toString())
+                                    navHeaderSet(binding.profileEditName.text.toString(), binding.profileEditEmail.text.toString())
                                     Toast.makeText(
                                         activity?.applicationContext, "Изменения успешно сохранены!",
                                         Toast.LENGTH_SHORT
@@ -202,6 +216,7 @@ class ProfileFragment : androidx.fragment.app.Fragment() {
         }
     }
 
+    //Обновление имени и почты в Navigation Header
     fun navHeaderSet(userName: String, userEmail: String){
         val navHeader = activity?.findViewById<View>(R.id.navigationView)
         val userNameTextView = navHeader?.findViewById<TextView>(R.id.nav_header_user_name)

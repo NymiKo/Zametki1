@@ -23,7 +23,16 @@ interface JSONPlaceHolderApi {
     fun postCreateTask(@Body bodyCreateTask: RequestBody): Call<PostCreateTask>
 
     @POST("/show_task.php")
-    fun postShowTask(@Body bodyShowTask: RequestBody): Call<PostShowTask>
+    fun postShowTask(@Body bodyShowTask: RequestBody): Call<List<PostShowTask>>
+
+    @POST("/task_view.php")
+    fun postTaskView(@Body bodyTaskView: RequestBody): Call<PostTaskView>
+
+    @POST("/task_delete.php")
+    fun postTaskDelete(@Body bodyTaskDelete: RequestBody): Call<PostTaskDelete>
+
+    @POST("/task_edit.php")
+    fun  postTaskEdit(@Body bodyTaskEdit: RequestBody): Call<PostTaskEdit>
 }
 
 data class LoginRequestModel(val Login: String, val Password: String){
@@ -68,6 +77,26 @@ data class ShowTaskModel(val Id: Int){
     }
 }
 
+data class TaskViewModel(val IdTask: Int){
+    fun getBody(): RequestBody{
+        val gson = Gson()
+        return RequestBody.create(null, gson.toJson(this))
+    }
+}
+
+data class TaskDeleteModel(val IdCreator: Int, val TaskName: String, val TaskDescription: String){
+    fun getBody(): RequestBody{
+        val gson = Gson()
+        return RequestBody.create(null, gson.toJson(this))
+    }
+}
+
+data class TaskEditModel(val CreatorId: Int, val OldTaskName: String, val OldTaskDescription: String, val TaskName: String, val TaskDescription: String){
+    fun getBody(): RequestBody{
+        val gson = Gson()
+        return RequestBody.create(null, gson.toJson(this))
+    }
+}
 //class getBody{
 //
 //}

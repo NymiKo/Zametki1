@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Looper
 import android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -35,12 +36,20 @@ class CreateTasks : AppCompatActivity() {
 
         title = "Новая задача"
 
+        //Отображение кнопки "Назад"
+        val actionBar = supportActionBar
+        actionBar?.setHomeButtonEnabled(true)
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        //Получение id пользователя
         id = intent.extras?.get("id").toString()
         Log.e("CreateTasks", id)
+
+        //Получение email пользователя
         userEmail = intent.extras?.get("email").toString()
         Log.e("CreateTasks", userEmail)
 
-        //Выбор цвета
+        //Выбор цвета задачи
         val btnRed = findViewById<Button>(R.id.btn_task_color_red)
         val btnGreen = findViewById<Button>(R.id.btn_task_color_green)
         val btnYellow = findViewById<Button>(R.id.btn_task_color_yellow)
@@ -66,6 +75,7 @@ class CreateTasks : AppCompatActivity() {
             saveTaskColor = resources.getColor(R.color.btn_task_color_purple)
         }
 
+        //Вызов метода для добавления задачи
         binding.btnAddTasks.setOnClickListener {
             sendCreateTask(
                 binding.editNameTasks.text.toString(),
@@ -85,7 +95,7 @@ class CreateTasks : AppCompatActivity() {
             }
         }
 
-        //Создание TextEdit
+        //Создание TextEdit для добавления участника
         val btnAddParticipants = findViewById<Button>(R.id.btnAddParticipants)
         val layoutAddParticipants = findViewById<LinearLayout>(R.id.linearLayoutAddParticipants)
         btnAddParticipants.setOnClickListener {
@@ -102,6 +112,18 @@ class CreateTasks : AppCompatActivity() {
         }
     }
 
+    //Возвращение на предыдущий экарн при нажатии на кнопку "Назад"
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            android.R.id.home -> {
+                this.finish()
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
+    //Метод для выбора цвета задачи
     fun choiceOfColor(btnChoiceRed: Button? = findViewById(R.id.btn_task_color_red)){
         val btnRed = findViewById<Button>(R.id.btn_task_color_red)
         val btnGreen = findViewById<Button>(R.id.btn_task_color_green)
@@ -126,7 +148,9 @@ class CreateTasks : AppCompatActivity() {
         }
     }
 
+    //Метод для добавления задачи в базу данных
     fun sendCreateTask(Name: String, Discription: String, Color: Int, Creator: Int, Participant: String){
+        if(binding.editNameTasks.length() > 0) {
             thread {
                 NetworkService.instance()
                     .getJSONApi()
@@ -144,6 +168,7 @@ class CreateTasks : AppCompatActivity() {
                                         applicationContext, "Задача добавлена!",
                                         Toast.LENGTH_SHORT
                                     ).show()
+                                    finish()
                                 }
                                 "false" -> {
                                     Toast.makeText(
@@ -172,5 +197,15 @@ class CreateTasks : AppCompatActivity() {
                         }
                     })
             }
+        }
+        else {
+            Toast.makeText(
+                applicationContext, "Введите название задачи!",
+                Toast.LENGTH_SHORT
+            ).show()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                binding.editNameTasks.backgroundTintList = ContextCompat.getColorStateList(this, R.color.btn_task_color_red)
+            }
+        }
     }
 }

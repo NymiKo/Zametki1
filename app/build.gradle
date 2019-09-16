@@ -46,4 +46,5 @@ dependencies {
     implementation 'androidx.mediarouter:mediarouter:1.0.0'
     implementation 'com.github.florent37:expansionpanel:1.2.2'
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
 }

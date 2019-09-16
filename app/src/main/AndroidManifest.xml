@@ -11,8 +11,9 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity
-                android:name=".Activity.CreateTasks">
+        <activity android:name=".Activity.TaskViewActivity">
+        </activity>
+        <activity android:name=".Activity.CreateTasks">
         </activity>
         <activity android:name=".Activity.Tasks">
         </activity>
@@ -29,7 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
